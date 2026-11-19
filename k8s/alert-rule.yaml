@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: example-app-alerts
+  namespace: sre-project
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: example-app
+      rules:
+        - alert: ExampleAppDown
+          expr: absent(up{job="example-app"} == 1)
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "example-app no tiene ningún pod respondiendo"
