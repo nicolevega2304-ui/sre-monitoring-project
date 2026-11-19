@@ -29,7 +29,7 @@ grafana:
       cpu: 50m
       memory: 128Mi
     limits:
-      memory: 256Mi
+      memory: 512Mi
 
 # Componentes que no aplican en Minikube y gastan memoria
 kubeEtcd:
