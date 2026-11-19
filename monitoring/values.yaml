@@ -1,0 +1,42 @@
+# Configuración de kube-prometheus-stack para el proyecto SRE
+# Valores reducidos para que entre en un Minikube de 4 GiB
+
+prometheus:
+  prometheusSpec:
+    retention: 6h
+    resources:
+      requests:
+        cpu: 100m
+        memory: 400Mi
+      limits:
+        memory: 800Mi
+    # Que Prometheus descubra ServiceMonitors de cualquier release
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+alertmanager:
+  alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        memory: 128Mi
+
+grafana:
+  adminPassword: admin-sre-project
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      memory: 256Mi
+
+# Componentes que no aplican en Minikube y gastan memoria
+kubeEtcd:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeProxy:
+  enabled: false
